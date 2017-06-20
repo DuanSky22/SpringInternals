@@ -2,9 +2,11 @@
 typora-copy-images-to: pic
 ---
 
+[TOC]
+
 # Spring IoC的设计
 
-> 在本章节，重点讲解Spring IoC的设计思想。
+> 在本章，我们首先解释了相关的概念，然后重点讲解Spring IoC的设计思想。
 
 ## 依赖倒置（Dependence Inversion）、控制反转（Inversion of Control）、依赖注入（Dependency Injection）
 
@@ -34,7 +36,7 @@ typora-copy-images-to: pic
 
 ​	如前所述，Spring 提供了两类容器：BeanFactory和ApplicationContext。下面我们将分别对这两类容器按层次进行讲解。
 
-> ​	在下面的分层讲解中，我们的重心不是讲解每个类或接口的具体细节，而是理清楚整个Spring IoC框架的架构，从而深入理解Spring的设计思想。
+> 在下面的分层讲解中，我们的重心不是讲解每个类或接口的具体细节，而是理清楚整个Spring IoC框架的架构，从而深入理解Spring的设计思想。
 
 ### BeanFactory 主线
 
@@ -48,7 +50,7 @@ typora-copy-images-to: pic
 
 ​	BeanFactory是Spring IoC容器的基本接口。不看源码前，我们先试想一个容器最基本的功能是什么？应该是能够**存取对象**！用户能够将特定类型的对象放入容器中以便其它对象直接从容器中取用。这是作为容器最基本的特性。BeanFactory就是为此而设计的。它包含了4种获取Bean的方法；5中检测Bean的方法和一种获取Bean别名的方法。这些方法是作为容器的最基本的特征，用户可以从这个容器中取出自己想要的特定类型的Bean，也可以去检测这个Bean是否符合某个特征。
 
-> ​	:anchor: 细心的读者会发现这些都是取对象的方法，怎么没有存对象的方法呢？确实只有先存入对象，后面才能够取对象。在Spring中，关于对象如何存入的，是在Resource和ResourceLoader接口中定义的。这里将容器的“存”和“取”的过程分开，使得容器的设计更加模块化。对于使用者来说，可能根本不关心对象时如何存入容器的，他们只需要知道能够从容器中使用即可。这也遵循Spring的"to the developers, for the developers, and by the developers"的思想。[模块化思想]
+> ​	 细心的读者会发现这些都是取对象的方法，怎么没有存对象的方法呢？确实只有先存入对象，后面才能够取对象。在Spring中，关于对象如何存入的，是在Resource和ResourceLoader接口中定义的。这里将容器的“存”和“取”的过程分开，使得容器的设计更加模块化。对于使用者来说，可能根本不关心对象时如何存入容器的，他们只需要知道能够从容器中使用即可。这也遵循Spring的"to the developers, for the developers, and by the developers"的思想。[模块化思想]
 
 ```java
 public interface BeanFactory {
